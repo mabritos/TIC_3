@@ -1,9 +1,0 @@
-
-label.error {
-    color: red;
-    font-weight: normal;
-    font-size: 0.9em;
-}
-input.error, select.error {
-    border-color: red;
-}
