@@ -1,26 +1,26 @@
 CREATE DATABASE IF NOT EXISTS db;
 USE db;
-CREATE TABLE User ( 
-	UserId int AUTO_INCREMENT NOT NULL,
-	UserName varchar(20),
+CREATE TABLE Player ( 
+	PlayerId int AUTO_INCREMENT NOT NULL,
+	PlayerName varchar(20),
 	FullName varchar(20),
-	Password varchar(128),
-	PRIMARY KEY (UserId)
+	UserPassword varchar(128),
+	PRIMARY KEY (PlayerId)
 );
 CREATE TABLE Item (
 	ItemId int AUTO_INCREMENT NOT NULL,
-	Name varchar(20),
-	Type varchar(2),
+	ItemName varchar(20),
+	ItemType varchar(2),
 	Min int,
 	Max int,
 	Stat varchar(3),
 	UpgradeId int,
 	PRIMARY KEY (ItemId)
 );
-CREATE TABLE Character (
+CREATE TABLE PlayableCharacter (
 	CharacterId int AUTO_INCREMENT NOT NULL,
-	UserId int NOT NULL,
-	Name varchar(20),
+	PlayerId int NOT NULL,
+	CharacterName varchar(20),
 	StrStat int,
 	AgiStat int,
 	IntStat int,
@@ -30,13 +30,13 @@ CREATE TABLE Character (
 	ArmorId int,
 	WeaponId int,
 	PRIMARY KEY (CharacterId),
-	FOREIGN KEY (UserId) REFERENCES User(UserId),
+	FOREIGN KEY (PlayerId) REFERENCES Player(PlayerId),
 	FOREIGN KEY (ArmorId) REFERENCES Item(ItemId),
 	FOREIGN KEY (WeaponId) REFERENCES Item(ItemId)
 );
 CREATE TABLE Enemy(
 	EnemyId int AUTO_INCREMENT NOT NULL,
-	Name varchar(20),
+	EnemyName varchar(20),
 	Zone varchar(20),
 	Appearance tinyint,
 	HpStat int,
@@ -47,5 +47,4 @@ CREATE TABLE Enemy(
 	Gold int,
 	Experience int,
 	PRIMARY KEY (EnemyId)
-
 );
