@@ -4,10 +4,10 @@ const mysql = require('mysql');
  * Connection to the database.
  *  */
 const pool = mysql.createPool({
-    connectionLimit: 10,
+    connectionLimit: 1,
     host: 'localhost',
-    user: 'gm', // use your mysql username.
-    password: 'root', // user your mysql password.
+    user: 'root', // use your mysql username.
+    password: 'password', // user your mysql password.
     database: 'db'
 });
 

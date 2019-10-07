@@ -1,10 +1,11 @@
 var express = require('express');
 const session = require('express-session');
 const userRouter = require('./routes/user');
-const characterRouter = require('./routes/character');
+//const characterRouter = require('./routes/character');
 var app = express();
 var serv = require('http').Server(app);
 
+app.use(express.urlencoded( { extended : false}));
 
 app.get('/', function(req, res) {
 	res.sendFile(__dirname + '/client/index.html');
@@ -12,7 +13,7 @@ app.get('/', function(req, res) {
 app.use('/client', express.static(__dirname + '/client'));
 
 app.use(session({
-    secret:'youtube_video',
+    secret:'tic_3_cookie',
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -22,7 +23,7 @@ app.use(session({
 
 app.use('/user', userRouter);
 
-app.use('/character', characterRouter);
+//app.use('/character', characterRouter);
 
 
 app.use((req, res, next) =>  {
@@ -36,6 +37,6 @@ app.use((err, req, res, next) => {
     res.send(err.message);
 });
 
-serv.listen(2000, 'localhost');
+serv.listen(3000, 'localhost');
 
 module.exports = app;
