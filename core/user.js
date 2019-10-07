@@ -14,7 +14,7 @@ User.prototype = {
             var field = Number.isInteger(user) ? 'id' : 'username';
         }
         // prepare the sql query
-        let sql = `SELECT * FROM users WHERE ${field} = ?`;
+        let sql = `SELECT * FROM Player WHERE ${field} = ?`;
 
 
         pool.query(sql, user, function(err, result) {
@@ -44,7 +44,7 @@ User.prototype = {
             bind.push(body[prop]);
         }
         // prepare the sql query
-        let sql = `INSERT INTO users(username, fullname, password) VALUES (?, ?, ?)`;
+        let sql = `INSERT INTO Player(PlayerName, FullName, PlayerPassword) VALUES (?, ?, ?)`;
         // call the query give it the sql string and the values (bind array)
         pool.query(sql, bind, function(err, result) {
             if(err) throw err;
