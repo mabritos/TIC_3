@@ -1,0 +1,26 @@
+{
+  "name": "tic_3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mabritos/TIC_3.git"
+  },
+  "keywords": [
+    "rpg"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mabritos/TIC_3/issues"
+  },
+  "homepage": "https://github.com/mabritos/TIC_3#readme"
+}
