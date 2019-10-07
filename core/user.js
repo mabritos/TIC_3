@@ -39,7 +39,7 @@ User.prototype = {
 
         // this array will contain the values of the fields.
         var bind = [];
-        // loop in the attributes of the object and push the values into the bind array.
+        // loop in the attributes of 0the object and push the values into the bind array.
         for(prop in body){
             bind.push(body[prop]);
         }

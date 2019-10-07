@@ -1,7 +1,7 @@
 var express = require('express');
 const session = require('express-session');
 const userRouter = require('./routes/user');
-//const characterRouter = require('./routes/character');
+const characterRouter = require('./routes/character');
 var app = express();
 var serv = require('http').Server(app);
 
@@ -23,7 +23,7 @@ app.use(session({
 
 app.use('/user', userRouter);
 
-//app.use('/character', characterRouter);
+app.use('/character', characterRouter);
 
 
 app.use((req, res, next) =>  {

@@ -7,7 +7,7 @@ const user = new User();
 
 router.use('/attack', (req, res) => {
 	//TODO
-	res.send('attack');
+	res.send.('attack');
 });
 
 module.exports = router;
