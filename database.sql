@@ -4,7 +4,7 @@ CREATE TABLE Player (
 	PlayerId int AUTO_INCREMENT NOT NULL,
 	PlayerName varchar(20),
 	FullName varchar(20),
-	UserPassword varchar(128),
+	PlayerPassword varchar(128),
 	PRIMARY KEY (PlayerId)
 );
 CREATE TABLE Item (
