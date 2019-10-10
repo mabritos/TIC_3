@@ -1,13 +1,33 @@
 const express = require('express');
-const User = require('../core/user');
+const Character = require('../core/character');
 const router = express.Router();
 
 // create an object from the class User in the file core/user.js
-const user = new User();
+const characterPrototype = new Character();
 
-router.use('/attack', (req, res) => {
-	//TODO
-	res.send('attack');
+
+
+router.post('/attack', (req, res) => {
+	let myCharacter;
+	let enemies;
+	let myWeapon;
+	let myArmor;
+
+	characterPrototype.findCharacter(req.body.CharacterId, function(character){
+		myCharacter = character;
+		characterPrototype.findEnemies(req.body.Zone, function(enemyList){
+			enemies = enemyList;
+			characterPrototype.getItem(myCharacter.WeaponId, function(weapon){
+				myWeapon = weapon;
+				characterPrototype.getItem(myCharacter.ArmorId, function(armor){
+					myArmor = armor;
+					res.send(characterPrototype.fight(myCharacter, myWeapon, myArmor, enemies));
+				});
+			});
+		});
+	});
+
+
 });
 
 module.exports = router;
