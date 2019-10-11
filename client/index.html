@@ -4,18 +4,56 @@
   <title>TIC BattleRoyale</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cyborg/bootstrap.min.css" rel="stylesheet" integrity="sha384-mtS696VnV9qeIoC8w/PrPoRzJ5gwydRVn0oQ9b+RJOPxE1Z1jXuuJcyeNxvNZhdx" crossorigin="anonymous">
   <link rel="stylesheet" href="client/css/style.css">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-  <header>
-    <nav class="navbar navbar-dark bg-dark">
-      <div>
-        <span class="navbar-brand"><strong>RPG Main page</strong></span>
-        <img src="client/img/icon.png" class="rpg-icon">
-      </div>
-    </nav>
-  </header>
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+					<a class="navbar-brand" href="#">
+					<img class="rpg-icon" src="/client/img/icon.png" alt="">
+					</a>
+				  <a class="navbar-brand" href="#">RPG</a>
+				  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				    <span class="navbar-toggler-icon"></span>
+				  </button>
+				  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+				    <ul class="navbar-nav mr-auto">
+<!-- 				      <li class="nav-item active">
+				        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+				      </li>
+				      <li class="nav-item">
+				        <a class="nav-link" href="#">Gallery</a>
+				      </li>
+				      <li class="nav-item">
+				        <a class="nav-link" href="#">Event</a>
+				      </li> -->
+				    </ul>
+				    <form class="form-inline my-2 my-lg-0">
+				    	<div class="col-auto pl-0">
+					      <div class="input-group">
+					        <div class="input-group-prepend">
+					          <div class="input-group-text"><i class="fa fa-user"></i></div>
+					        </div>
+					        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email Address">
+					      </div>
+					    </div>
+					    <div class="col-auto pl-0">
+					      <div class="input-group">
+					        <div class="input-group-prepend">
+					          <div class="input-group-text"><i class="fa fa-lock"></i></div>
+					        </div>
+					        <input type="password" class="form-control" id="inlineFormInputGroup" placeholder="Password">
+					      </div>
+					    </div>
+					    <div class="col-auto pl-0 pr-0">
+				      		<button class="btn btn-primary my-2 my-sm-0" type="submit">Login</button>
+				      	</div>
+				    </form>
+				  </div>
+				</nav>	
+	</header>
 
   <div class="container-fluid">
     <div class="row">
