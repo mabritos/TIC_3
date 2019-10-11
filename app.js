@@ -1,11 +1,16 @@
 var express = require('express');
+const bodyParser = require('body-parser');
 const session = require('express-session');
 const userRouter = require('./routes/user');
 const characterRouter = require('./routes/character');
 var app = express();
 var serv = require('http').Server(app);
 
-app.use(express.urlencoded( { extended : false}));
+//app.use(express.urlencoded( { extended : false}));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
 
 app.get('/', function(req, res) {
 	res.sendFile(__dirname + '/client/index.html');
