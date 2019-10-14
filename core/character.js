@@ -13,7 +13,6 @@ Character.prototype = {
         // prepare the sql query
         let sql = `SELECT * FROM playablecharacter WHERE CharacterId = ?`;
 
-
         pool.query(sql, characterId, function (err, result) {
             if (err) throw err;
 
@@ -123,7 +122,7 @@ Character.prototype = {
             log = log + "You've slained " + enemy.EnemyName + "\n" + "You've gained " + enemy.Gold + " gold and " + enemy.Experience + " xp!";
             character.Gold = character.Gold + enemy.Gold;
             character.Experience = character.Experience + enemy.Experience;
-            let sql = 'UPDATE playablecharacter SET Gold = ? AND Experience = ? WHERE CharacterId = ?';
+            let sql = 'UPDATE playablecharacter SET Gold = ?, Experience = ? WHERE CharacterId = ?';
             pool.query(sql, [character.Gold, character.Experience, character.CharacterId], function (err, result) {
                 if (err) throw err;
             });
