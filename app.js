@@ -15,6 +15,12 @@ app.use(bodyParser.urlencoded({
 app.get('/', function(req, res) {
 	res.sendFile(__dirname + '/client/index.html');
 });
+app.get('/login_reg', function(req, res) {
+	res.sendFile(__dirname + '/client/login_reg.html');
+});
+app.get('/game', function(req, res) {
+	res.sendFile(__dirname + '/client/game.html');
+});
 app.use('/client', express.static(__dirname + '/client'));
 
 app.use(session({

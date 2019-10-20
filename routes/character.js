@@ -5,7 +5,9 @@ const router = express.Router();
 // create an object from the class User in the file core/user.js
 const characterPrototype = new Character();
 
-
+router.post('/load', (req, res) => {
+	res.send('there u go buddy');
+});
 
 router.post('/attack', (req, res) => {
 	let myCharacter;

@@ -15,11 +15,42 @@
 
 	<div class="container login-container">
 		<div class="row">
-			<div class="col">
-				<h1>EL JUEGO ESTA BUENO<h1>
-				<a href="/login_reg">
-				<button type="button" class="btn btn-primary">Login/Register</button>
-				</a>
+			<div class="col-md-6 login-form-1">
+				<form action="/user/login" method="POST">
+					<h3>Login</h3>
+					<div class="form-group">
+						<input type="text" name="username" class="form-control" placeholder="Username" value="" />
+					</div>
+					<div class="form-group">
+						<input type="password" name="password" class="form-control" placeholder="Password" value="" />
+					</div>
+					<div class="form-group">
+						<input type="submit" class="btnSubmit" value="Login" />
+					</div>
+					<div class="form-group">
+						<a href="#" class="btnForgetPwd">Forget Password?</a>
+					</div>
+				</form>
+			</div>
+			<div class="col-md-6 login-form-2">
+				<div class="login-logo">
+					<img src="/client/img/icon.png" alt=""/>
+				</div>
+				<form action="/user/register" method="POST">
+					<h3>Register</h3>
+					<div class="form-group">
+						<input type="text" name="username" class="form-control" placeholder="Username" value="" />
+					</div>
+					<div class="form-group">
+						<input type="password" name="password" class="form-control" placeholder="Password" value="" />
+					</div>
+					<div class="form-group">
+						<input type="email" name="email" class="form-control" placeholder="Email" value="" />
+					</div>
+					<div class="form-group">
+						<input type="submit" class="btnSubmit" value="Register" />
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>

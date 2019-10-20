@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>TIC BattleRoyale</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cyborg/bootstrap.min.css" rel="stylesheet" integrity="sha384-mtS696VnV9qeIoC8w/PrPoRzJ5gwydRVn0oQ9b+RJOPxE1Z1jXuuJcyeNxvNZhdx" crossorigin="anonymous">
+  <link rel="stylesheet" href="client/css/style.css">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body onload="loadChar()">
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" href="#">
+				<img class="rpg-icon" src="/client/img/icon.png" alt="">
+			</a>
+			<a class="navbar-brand" href="#">RPG</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+<!-- 				      <li class="nav-item active">
+					<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+				  </li>
+				  <li class="nav-item">
+					<a class="nav-link" href="#">Gallery</a>
+				  </li>
+				  <li class="nav-item">
+					<a class="nav-link" href="#">Event</a>
+				  </li> -->
+				</ul>
+			</div>
+		</nav>
+	</header>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-4 page-block">
+        <ul class="list-unstyled" style="margin: 2px">
+          <li><span>Nombre: </span><span id="char-name">Lancelot</span><span>&nbsp- </span><span>Nivel: </span><span id=lvl>4</span></li>
+          <li><span>Experiencia: </span><span id="exp">3000</span></li>
+          <li><span>Vida: </span><span id="pv">100</span> <button style="margin-right: 5px" type="button" class="btn btn-warning btn-sm upButton" onclick="hpUp()">+</button></li>
+          <li><span>Oro: </span><span id="gold">35</span></li>
+          <li><span>Fuerza: </span><span id="fue">20</span> <button style="margin-right: 5px" type="button" class="btn btn-warning btn-sm upButton" onclick="strUp()">+</button></li>
+          <li><span>Agilidad: </span><span id="agi">12</span> <button style="margin-right: 5px" type="button" class="btn btn-warning btn-sm upButton" onclick="agiUp()">+</button></li>
+          <li><span>Inteligencia: </span><span id="int">4</span> <button style="margin-right: 5px" type="button" class="btn btn-warning btn-sm upButton" onclick="intUp()">+</button></li>
+        </ul>
+      </div>
+      <div class="col-6">
+        <div class="row btn-toolbar" role="toolbar" id="btn-bar">
+          <div class="btn-group" role="group">
+			  <div class="form-group" style="margin-bottom: 0px">
+				  <select class="form-control" id="exampleFormControlSelect1">
+					  <option>Pocitos</option>
+					  <option>Punta Carretas</option>
+					  <option>Cerrito</option>
+					  <option>Punta de Rieles</option>
+					  <option>Piedras Blancas</option>
+				  </select>
+			  </div>
+          </div>
+          <div class="btn-group" role="group">
+              <button style="margin-right: 5px" type="button" class="btn btn-secondary">Atacar</button>
+          </div>
+        </div>
+        <div class="row bg-dark page-block" id="history"> esto deberia ser un log</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="client/js/script.js"></script>
+</body>
+</html>

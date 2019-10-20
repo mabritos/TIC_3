@@ -9,11 +9,13 @@
     "express": "^4.17.1",
     "express-session": "^1.16.2",
     "mysql": "^2.17.1",
+    "nodemon": "^1.19.4",
     "util.promisify": "^1.0.0"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "repository": {
     "type": "git",

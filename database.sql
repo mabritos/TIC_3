@@ -3,7 +3,7 @@ USE db;
 CREATE TABLE Player ( 
 	PlayerId int AUTO_INCREMENT NOT NULL,
 	PlayerName varchar(20),
-	FullName varchar(20),
+	PlayerEmail varchar(100),
 	PlayerPassword varchar(128),
 	PRIMARY KEY (PlayerId)
 );
