@@ -6,7 +6,9 @@ const router = express.Router();
 const characterPrototype = new Character();
 
 router.post('/load', (req, res) => {
-	res.send('there u go buddy');
+	characterPrototype.findPlayerCharacter(req.session.playerId, function(character) {
+		res.send(character);
+	});
 });
 
 router.post('/attack', (req, res) => {

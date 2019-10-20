@@ -8,6 +8,19 @@ function Character() {
 };
 
 Character.prototype = {
+
+    createCharacter: function(player, callback) {
+        
+        let sql = 'INSERT INTO playablecharacter (PlayerId, CharacterName) VALUES (?, ?)';
+
+        pool.query(sql, [player.PlayerId, player.PlayerName], function (err, result) {
+            if (err) throw err;
+
+            callback(result.insertId);
+        });
+
+    },
+
     // Find the playablecharacter data by characterid
     findCharacter: function(characterId, callback) {
         // prepare the sql query
@@ -23,6 +36,24 @@ Character.prototype = {
             }
         });
     },
+
+    
+    // Find the playablecharacter data by playerid
+    findPlayerCharacter: function(playerId, callback) {
+        // prepare the sql query
+        let sql = `SELECT * FROM playablecharacter WHERE PlayerId = ?`;
+
+        pool.query(sql, playerId, function (err, result) {
+            if (err) throw err;
+
+            if (result.length) {
+                callback(result[0]);
+            } else {
+                callback(null);
+            }
+        });
+    },
+    
     findEnemies: function(zone, callback) {
         let sql = 'SELECT * FROM enemy WHERE Zone = ?';
 
@@ -38,6 +69,7 @@ Character.prototype = {
 
         });
     },
+    
     getItem: function(itemId, callback) {
         let sql = 'SELECT * FROM item WHERE ItemId = ?';
 
@@ -51,6 +83,7 @@ Character.prototype = {
             }
         });
     },
+    
     randomEnemy: function(enemyList) {
         let appearance = Math.floor(Math.random() * 5);
         let enemy;
@@ -60,6 +93,7 @@ Character.prototype = {
             }
         }
     },
+    
     minAndMaxStatsItemCharacter: function(item, character){
         let min, max;
         if (item.Stat == "STR") {

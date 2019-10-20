@@ -1,5 +1,6 @@
 const express = require('express');
 const User = require('../core/user');
+const Character = require('../core/character');
 const router = express.Router();
 
 // create an object from the class User in the file core/user.js
@@ -12,8 +13,8 @@ router.post('/login', (req, res, next) => {
     user.login(req.body.username, req.body.password, function(result) {
         if(result) {
             // Store the user data in a session.
-            req.session.user = result;
-            req.session.opp = 1;
+            req.session.playerId = result.PlayerId;
+            req.session.opp = 1;          
             // redirect the user to the home page.
             res.redirect('/game');
         }else {
@@ -39,13 +40,22 @@ router.post('/register', (req, res, next) => {
         if(lastId) {
             // Get the user data by it's id. and store it in a session.
             user.find(lastId, function(result) {
-                req.session.user = result;
-                req.session.fer = 'fer';
-                req.session.opp = 0;
-                res.redirect('/login_reg');
+                req.session.playerId = result.PlayerId;                
+                const character = new Character();
+                characterId = character.createCharacter(result, function(lastId) {
+                    if(lastId) {
+                        // Get the character data by it's id. and store it in a session.
+                        character.findCharacter(lastId, function(result) {
+                            req.session.characterId = characterId;
+                            req.session.opp = 0;
+                            res.redirect('/login_reg');    
+                        });
+                    } else {
+                        console.log('Error creating a new character ...');
+                    }            
+                });
             });
-
-        }else {
+        } else {
             console.log('Error creating a new user ...');
         }
     });

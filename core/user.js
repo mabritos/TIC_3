@@ -31,7 +31,6 @@ User.prototype = {
     // body is an object 
     create : function(body, callback) 
     {
-
         var pwd = body.password;
         // Hash the password before insert it into the database.
         body.password = bcrypt.hashSync(pwd,10);
