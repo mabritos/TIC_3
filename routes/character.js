@@ -6,7 +6,7 @@ const router = express.Router();
 const characterPrototype = new Character();
 
 router.post('/load', (req, res) => {
-	characterPrototype.findPlayerCharacter(req.session.playerId, function(character) {
+	characterPrototype.findPlayerCharacter(req.session.userId, function(character) {
 		res.send(character);
 	});
 });
@@ -17,13 +17,13 @@ router.post('/attack', (req, res) => {
 	let myWeapon;
 	let myArmor;
 
-	characterPrototype.findCharacter(req.body.CharacterId, function(character){
+	characterPrototype.findCharacter(req.body.characterId, function(character){
 		myCharacter = character;
-		characterPrototype.findEnemies(req.body.Zone, function(enemyList){
+		characterPrototype.findEnemies(req.body.zone, function(enemyList){
 			enemies = enemyList;
-			characterPrototype.getItem(myCharacter.WeaponId, function(weapon){
+			characterPrototype.getItem(myCharacter.weaponId, function(weapon){
 				myWeapon = weapon;
-				characterPrototype.getItem(myCharacter.ArmorId, function(armor){
+				characterPrototype.getItem(myCharacter.armorId, function(armor){
 					myArmor = armor;
 					res.send(characterPrototype.fight(myCharacter, myWeapon, myArmor, enemies));
 				});
@@ -31,6 +31,5 @@ router.post('/attack', (req, res) => {
 		});
 	});
 });
-
 
 module.exports = router;

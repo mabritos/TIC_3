@@ -11,10 +11,10 @@ User.prototype = {
         // if the user variable is defind
         if(user) {
             // if user = number return field = id, if user = string return field = username.
-            var field = Number.isInteger(user) ? 'PlayerId' : 'PlayerName';
+            var field = Number.isInteger(user) ? 'id' : 'username';
         }
         // prepare the sql query
-        let sql = `SELECT * FROM Player WHERE ${field} = ?`;
+        let sql = `SELECT * FROM users WHERE ${field} = ?`;
 
         pool.query(sql, user, function(err, result) {
             if(err) throw err
@@ -42,7 +42,7 @@ User.prototype = {
             bind.push(body[prop]);
         }
         // prepare the sql query
-        let sql = `INSERT INTO Player(PlayerName, PlayerPassword, PlayerEmail) VALUES (?, ?, ?)`;
+        let sql = `INSERT INTO users (username, password, email) VALUES (?, ?, ?)`;
         // call the query give it the sql string and the values (bind array)
         pool.query(sql, bind, function(err, result) {
             if(err) throw err;
@@ -58,7 +58,7 @@ User.prototype = {
             // if there is a user by this username.
             if(user) {
                 // now we check his password.
-                if(bcrypt.compareSync(password, user.PlayerPassword)) {
+                if(bcrypt.compareSync(password, user.password)) {
                     // return his data.
                     callback(user);
                     return;

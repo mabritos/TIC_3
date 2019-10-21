@@ -3,26 +3,23 @@ const User = require('../core/user');
 const Character = require('../core/character');
 const router = express.Router();
 
-// create an object from the class User in the file core/user.js
-const user = new User();
+const userPrototype = new User();
 
-// Post login data
 router.post('/login', (req, res, next) => {
-    // The data sent from the user are stored in the req.body object.
-    // call our login function and it will return the result(the user data).
-    user.login(req.body.username, req.body.password, function(result) {
-        if(result) {
-            // Store the user data in a session.
-            req.session.playerId = result.PlayerId;
-            req.session.opp = 1;          
-            // redirect the user to the home page.
-            res.redirect('/game');
-        }else {
-            // if the login function returns null send this error message back to the user.
-            res.send('Username/Password incorrect!');
-        }
-    })
-
+    var username = req.body.username;
+    var password = req.body.password;
+    if (username && password) {
+        userPrototype.login(req.body.username, req.body.password, function(user) {
+            if(user) {
+                req.session.userId = user.id;
+                res.redirect('/game');
+            } else {
+                res.send('Username/Password incorrect');
+            }
+        })
+    } else {
+        res.send("Plase enter Username and Password");
+    }
 });
 
 
@@ -35,19 +32,18 @@ router.post('/register', (req, res, next) => {
         email: req.body.email
     };
     // call create function. to create a new user. if there is no error this function will return it's id.
-    user.create(userInput, function(lastId) {
+    userPrototype.create(userInput, function(lastId) {
         // if the creation of the user goes well we should get an integer (id of the inserted user)
         if(lastId) {
             // Get the user data by it's id. and store it in a session.
-            user.find(lastId, function(result) {
-                req.session.playerId = result.PlayerId;                
+            userPrototype.find(lastId, function(user) {
+                req.session.userId = user.id;                
                 const character = new Character();
-                characterId = character.createCharacter(result, function(lastId) {
+                characterId = character.createCharacter(user, function(lastId) {
                     if(lastId) {
                         // Get the character data by it's id. and store it in a session.
-                        character.findCharacter(lastId, function(result) {
-                            req.session.characterId = characterId;
-                            req.session.opp = 0;
+                        character.findCharacter(lastId, function(character) {
+                            req.session.characterId = character.id;
                             res.redirect('/login_reg');    
                         });
                     } else {
@@ -66,7 +62,7 @@ router.post('/register', (req, res, next) => {
 // Get loggout page
 router.get('/logout', (req, res, next) => {
     // Check if the session is exist
-    if(req.session.user) {
+    if(req.session.userId) {
         // destroy the session and redirect the user to the index page.
         req.session.destroy(function() {
             res.redirect('/');

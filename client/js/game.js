@@ -19,9 +19,9 @@ function hpUp() {
 }
 
 function loadChar(){
-    $.post( "/character/load", function( character ) {
+    $.post( "/character/load", function(character) {
         console.log(character);
-        $("#char-name").html(character.CharacterName);
+        $("#char-name").html(character.name);
     });
 }
 

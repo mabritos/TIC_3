@@ -9,11 +9,11 @@ function Character() {
 
 Character.prototype = {
 
-    createCharacter: function(player, callback) {
+    createCharacter: function(user, callback) {
         
-        let sql = 'INSERT INTO playablecharacter (PlayerId, CharacterName) VALUES (?, ?)';
+        let sql = 'INSERT INTO characters (userId, name) VALUES (?, ?)';
 
-        pool.query(sql, [player.PlayerId, player.PlayerName], function (err, result) {
+        pool.query(sql, [user.id, user.username], function (err, result) {
             if (err) throw err;
 
             callback(result.insertId);
@@ -21,12 +21,12 @@ Character.prototype = {
 
     },
 
-    // Find the playablecharacter data by characterid
-    findCharacter: function(characterId, callback) {
+    // Find the playablecharacter data by characteruserId
+    findCharacter: function(characteruserId, callback) {
         // prepare the sql query
-        let sql = `SELECT * FROM playablecharacter WHERE CharacterId = ?`;
+        let sql = 'SELECT * FROM characters WHERE userId = ?';
 
-        pool.query(sql, characterId, function (err, result) {
+        pool.query(sql, characteruserId, function (err, result) {
             if (err) throw err;
 
             if (result.length) {
@@ -38,12 +38,12 @@ Character.prototype = {
     },
 
     
-    // Find the playablecharacter data by playerid
-    findPlayerCharacter: function(playerId, callback) {
+    // Find the playablecharacter data by userId
+    findPlayerCharacter: function(userId, callback) {
         // prepare the sql query
-        let sql = `SELECT * FROM playablecharacter WHERE PlayerId = ?`;
+        let sql = 'SELECT * FROM characters WHERE userId = ?';
 
-        pool.query(sql, playerId, function (err, result) {
+        pool.query(sql, userId, function (err, result) {
             if (err) throw err;
 
             if (result.length) {
@@ -54,8 +54,8 @@ Character.prototype = {
         });
     },
     
-    findEnemies: function(zone, callback) {
-        let sql = 'SELECT * FROM enemy WHERE Zone = ?';
+    findEnemy: function(zone, callback) {
+        let sql = 'SELECT * FROM enemies WHERE zone = ?';
 
         pool.query(sql, zone, function (err, result) {
             if (err) throw err;
@@ -71,7 +71,7 @@ Character.prototype = {
     },
     
     getItem: function(itemId, callback) {
-        let sql = 'SELECT * FROM item WHERE ItemId = ?';
+        let sql = 'SELECT * FROM items WHERE itemId = ?';
 
         pool.query(sql, itemId, function (err, result) {
             if (err) throw err;
@@ -97,14 +97,14 @@ Character.prototype = {
     minAndMaxStatsItemCharacter: function(item, character){
         let min, max;
         if (item.Stat == "STR") {
-            min = parseInt(item.Min) + parseInt(character.StrStat);
-            max = parseInt(item.Min) + parseInt(character.StrStat);
+            min = parseInt(item.Min) + parseInt(character.strength);
+            max = parseInt(item.Min) + parseInt(character.strength);
         }else if (item.Stat == "AGI") {
-            min = parseInt(item.Min) + parseInt(character.AgiStat);
-            max = parseInt(item.Min) + parseInt(character.AgiStat);
+            min = parseInt(item.Min) + parseInt(character.agility);
+            max = parseInt(item.Min) + parseInt(character.agility);
         }else {
-            min = parseInt(item.Min) + parseInt(character.IntStat);
-            max = parseInt(item.Min) + parseInt(character.IntStat);
+            min = parseInt(item.Min) + parseInt(character.intelligence);
+            max = parseInt(item.Min) + parseInt(character.intelligence);
         }
         return [min, max];
 
@@ -114,9 +114,9 @@ Character.prototype = {
         //se elije un enemigo al azar de la lista
         let enemy = Character.prototype.randomEnemy(enemies);
 
-        //calcular vida del character y del enemigo
-        let characterHp = character.HpStat;
-        let enemyHp = enemy.HpStat;
+        //calcular vuserIda del character y del enemigo
+        let characterHp = character.hp;
+        let enemyHp = enemy.hp;
 
         //calcular ataque del character
         let minAndMaxAttack = Character.prototype.minAndMaxStatsItemCharacter(weapon,character);
@@ -129,39 +129,39 @@ Character.prototype = {
         let defenseCharacterMax = minAndMaxDefense[1];
 
         //se simula la pelea, cada ataque se anade al log
-        let log = "A " + enemy.EnemyName +" has appeared!\n";
+        let log = "A " + enemy.name +" has appeared!\n";
         let playerDeals = 0;
         let enemyDeals = 0;
 
         while (characterHp > 0 && enemyHp > 0) {
-            playerDeals = randomIntFromInterval(attackCharacterMin, attackCharacterMax) - randomIntFromInterval(enemy.MinDefense, enemy.MaxDefense);
+            playerDeals = randomIntFromInterval(attackCharacterMin, attackCharacterMax) - randomIntFromInterval(enemy.minDefense, enemy.maxDefense);
             if(playerDeals < 0){
                 playerDeals = 0;
             }
             enemyHp = enemyHp - playerDeals;
-            log = log + character.CharacterName + " attacked with " + weapon.ItemName + ", dealing " + playerDeals + " Damage!\n";
+            log += character.name + " attacked with " + weapon.name + ", dealing " + playerDeals + " Damage!\n";
             if (enemyHp <= 0){
                 break;
             }
-            enemyDeals = randomIntFromInterval(enemy.MinAttack, enemy.MaxAttack) - randomIntFromInterval(defenseCharacterMin, defenseCharacterMax);
+            enemyDeals = randomIntFromInterval(enemy.minAttack, enemy.maxAttack) - randomIntFromInterval(defenseCharacterMin, defenseCharacterMax);
             if(enemyDeals < 0){
                 enemyDeals = 0;
             }
             characterHp = characterHp - enemyDeals;
-            log = log + enemy.EnemyName + " attacked, dealing " + enemyDeals + " Damage!\n";
+            log += enemy.name + " attacked, dealing " + enemyDeals + " Damage!\n";
         }
 
         //casos si character gana o pierde la pelea
         if(characterHp > 0){
-            log = log + "You've slained " + enemy.EnemyName + "\n" + "You've gained " + enemy.Gold + " gold and " + enemy.Experience + " xp!";
-            character.Gold = character.Gold + enemy.Gold;
-            character.Experience = character.Experience + enemy.Experience;
-            let sql = 'UPDATE playablecharacter SET Gold = ?, Experience = ? WHERE CharacterId = ?';
-            pool.query(sql, [character.Gold, character.Experience, character.CharacterId], function (err, result) {
+            log += "You've slained " + enemy.name + "\n" + "You've gained " + enemy.gold + " gold and " + enemy.xp + " xp!";
+            character.gold += enemy.gold;
+            character.xp += enemy.xp;
+            let sql = 'UPDATE characters SET gold = ?, xp = ? WHERE userId = ?';
+            pool.query(sql, [character.gold, character.xp, character.userId], function (err, result) {
                 if (err) throw err;
             });
         }else{
-            log = log + "You were defeated by " + enemy.EnemyName;
+            log += "You were defeated by " + enemy.name;
         }
 
         return {"character": character, "log": log};
