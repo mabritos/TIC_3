@@ -1,30 +1,30 @@
-function strUp() {
-    var fuerza = document.getElementById("fue").innerHTML;
-    document.getElementById("fue").innerHTML = parseInt(fuerza) + 2;
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function agiUp() {
-    var agilidad = document.getElementById("agi").innerHTML;
-    document.getElementById("agi").innerHTML = parseInt(agilidad) + 2;
+async function writeLog(gameLog) {
+  for (let index = 0; index < gameLog.length; index++) {
+    const element = gameLog[index];
+    $("#gameLog").html($("#gameLog").html() + element + "<br>");
+    $("#gameLog").scrollTop(250);
+    await sleep(1000);
+  }
 }
 
-function intUp() {
-    var inteligencia = document.getElementById("int").innerHTML;
-    document.getElementById("int").innerHTML = parseInt(inteligencia) + 2;
+function characterLoad(){
+  $.post( "/character/load", function(character) {
+      $("#characterName").html(character.name);
+      $("#characterXp")// TO DO
+      $("#characterGold").html(character.gold);
+      $("#characterHp").html(character.hp);
+      $("#characterStrength").html(character.strength);
+      $("#characterAgility").html(character.agility);
+      $("#characterIntelligence").html(character.intelligence);
+      $("#characterWeapon");// TO DO
+      $("#characterArmor");// TO DO
+  });
 }
 
-function hpUp() {
-    var vida = document.getElementById("pv").innerHTML;
-    document.getElementById("pv").innerHTML = parseInt(vida) + 10;
-}
-
-function loadChar(){
-    $.post( "/character/load", function(character) {
-        console.log(character);
-        $("#char-name").html(character.name);
-    });
-}
-
-$(document).ready(function() {
-    loadChar();
+$(function() {
+  characterLoad();
 });

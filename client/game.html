@@ -1,73 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>TIC BattleRoyale</title>
+  <title>RPG</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cyborg/bootstrap.min.css" rel="stylesheet" integrity="sha384-mtS696VnV9qeIoC8w/PrPoRzJ5gwydRVn0oQ9b+RJOPxE1Z1jXuuJcyeNxvNZhdx" crossorigin="anonymous">
-  <link rel="stylesheet" href="client/css/style.css">
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="client/css/game.css">
 </head>
 <body>
-	<header>
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<a class="navbar-brand" href="#">
-				<img class="rpg-icon" src="/client/img/icon.png" alt="">
-			</a>
-			<a class="navbar-brand" href="#">RPG</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav mr-auto">
-<!-- 				      <li class="nav-item active">
-					<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-				  </li>
-				  <li class="nav-item">
-					<a class="nav-link" href="#">Gallery</a>
-				  </li>
-				  <li class="nav-item">
-					<a class="nav-link" href="#">Event</a>
-				  </li> -->
-				</ul>
-			</div>
-		</nav>
-	</header>
-
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-4 page-block">
-        <ul class="list-unstyled" style="margin: 2px">
-          <li><span>Nombre: </span><span id="char-name">Lancelot</span><span>&nbsp- </span><span>Nivel: </span><span id=lvl>4</span></li>
-          <li><span>Experiencia: </span><span id="exp">3000</span></li>
-          <li><span>Vida: </span><span id="pv">100</span> <button style="margin-right: 5px" type="button" class="btn btn-warning btn-sm upButton" onclick="hpUp()">+</button></li>
-          <li><span>Oro: </span><span id="gold">35</span></li>
-          <li><span>Fuerza: </span><span id="fue">20</span> <button style="margin-right: 5px" type="button" class="btn btn-warning btn-sm upButton" onclick="strUp()">+</button></li>
-          <li><span>Agilidad: </span><span id="agi">12</span> <button style="margin-right: 5px" type="button" class="btn btn-warning btn-sm upButton" onclick="agiUp()">+</button></li>
-          <li><span>Inteligencia: </span><span id="int">4</span> <button style="margin-right: 5px" type="button" class="btn btn-warning btn-sm upButton" onclick="intUp()">+</button></li>
-        </ul>
-      </div>
-      <div class="col-6">
-        <div class="row btn-toolbar" role="toolbar" id="btn-bar">
-          <div class="btn-group" role="group">
-			  <div class="form-group" style="margin-bottom: 0px">
-				  <select class="form-control" id="exampleFormControlSelect1">
-					  <option>Pocitos</option>
-					  <option>Punta Carretas</option>
-					  <option>Cerrito</option>
-					  <option>Punta de Rieles</option>
-					  <option>Piedras Blancas</option>
-				  </select>
-			  </div>
-          </div>
-          <div class="btn-group" role="group">
-              <button style="margin-right: 5px" type="button" class="btn btn-secondary">Atacar</button>
-          </div>
+	<div class="container-fluid">
+        <div class="row justify-content-between">
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col">
+                        <ul class="list-unstyled">
+                            <li><h2 id="characterName"> </h2><span> lvl </span><span id=lvl>300</span></li>
+                            <li>
+                                <div class="progress" style="height: 1px;">
+                                    <div id="characterXp" class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </li>
+                            <li><span>Gold: </span><span id="characterGold"></span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <ul id="characterStats" class="list-unstyled">
+                            <li><span>HP: </span><span id="characterHp"></span></li>
+                            <li><span>Strength: </span><span id="characterStrength"></span></li>
+                            <li><span>Agility: </span><span id="characterAgility"></span></li>
+                            <li><span>Intelligence: </span><span id="characterIntelligence"></span></li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <img id="characterArmor" src="/client/img/icons/spartan-helmet.svg" height="45px" width="45px">
+                        <img id="characterWeapon" src="/client/img/icons/war-axe.svg" height="45px" width="45px">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="input-group">
+                            <select id="zoneSelector" class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                                <option selected>Choose...</option>
+                                <option value="1">Training Grounds</option>
+                                <option value="2">Dark Cave</option>
+                                <option value="3">Shrek's Swamp</option>
+                            </select>
+                            <div class="input-group-append">
+                                <button id="fightButton" class="btn btn-outline-secondary" type="button">Fight</button>
+                            </div>
+                        </div>                                  
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="row justify-content-center">
+                    <div class="col-md-5">
+                        <img id="gameImage" src="/client/img/icons/dragon-head.svg" alt="Dragon" height="220" width="220">
+                    </div>
+                    <div id="gameLog" class="col">
+                        <div id="anchor"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="row bg-dark page-block" id="history"> esto deberia ser un log</div>
-      </div>
-    </div>
-  </div>
+	</div>
 
   <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

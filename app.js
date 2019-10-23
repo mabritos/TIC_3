@@ -6,7 +6,6 @@ const characterRouter = require('./routes/character');
 var app = express();
 var serv = require('http').Server(app);
 
-//app.use(express.urlencoded( { extended : false})); >
 app.use(bodyParser.urlencoded({
   extended: true
 }));
