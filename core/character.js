@@ -22,11 +22,11 @@ Character.prototype = {
     },
 
     // Find the playablecharacter data by characteruserId
-    findCharacter: function(characteruserId, callback) {
+    findCharacter: function(characterId, callback) {
         // prepare the sql query
-        let sql = 'SELECT * FROM characters WHERE userId = ?';
+        let sql = 'SELECT * FROM characters WHERE id = ?';
 
-        pool.query(sql, characteruserId, function (err, result) {
+        pool.query(sql, characterId, function (err, result) {
             if (err) throw err;
 
             if (result.length) {
@@ -57,11 +57,11 @@ Character.prototype = {
     findEnemies: function(zone, callback) {
         let sql = 'SELECT * FROM enemies WHERE zone = ?';
 
-        pool.query(sql, zone, function (err, result) {
+        pool.query(sql, zone, function (err, enemy) {
             if (err) throw err;
 
-            if (result.length) {
-                callback(result);
+            if (enemy.length) {
+                callback(enemy);
             } else {
                 callback(null);
 
@@ -85,13 +85,14 @@ Character.prototype = {
     },
     
     randomEnemy: function(enemyList) {
-        let appearance = Math.floor(Math.random() * 5);
-        let enemy;
-        for (let i = 0; i < enemyList.length; i++) {
-            if (enemyList[i].spawn == appearance) {
-                return enemy = enemyList[i];
-            }
-        }
+        // let appearance = Math.floor(Math.random() * 5);
+        // let enemy;
+        // for (let i = 0; i < enemyList.length; i++) {
+        //     if (enemyList[i].spawn == appearance) {
+        //         return enemy = enemyList[i];
+        //     }
+        // }
+        return enemyList[0];
     },
     
     minAndMaxStatsItemCharacter: function(item, character){
@@ -163,8 +164,8 @@ Character.prototype = {
             gameLog[i] = "You've gained " + enemy.gold + " gold and " + enemy.xp + " xp!";
             character.gold += enemy.gold;
             character.xp += enemy.xp;
-            let sql = 'UPDATE characters SET gold = ?, xp = ? WHERE userId = ?';
-            pool.query(sql, [character.gold, character.xp, character.userId], function (err, result) {
+            let sql = 'UPDATE characters SET gold = ?, xp = ? WHERE id = ?';
+            pool.query(sql, [character.gold, character.xp, character.id], function (err, result) {
                 if (err) throw err;
             });
         }else{

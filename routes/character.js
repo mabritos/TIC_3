@@ -6,10 +6,13 @@ const router = express.Router();
 const characterPrototype = new Character();
 
 router.post('/load', (req, res) => {
-	characterPrototype.findPlayerCharacter(req.session.userId, function(character) {
-		console.log(character);
-		res.send(character);
-	});
+    if (req.session.userId)
+        characterPrototype.findPlayerCharacter(req.session.userId, function(character) {
+            req.session.characterId = character.id;
+            res.send(character);
+        });
+    else
+        res.send("Your session has expired.");
 });
 
 router.post('/attack', (req, res) => {
@@ -18,7 +21,7 @@ router.post('/attack', (req, res) => {
 	let myWeapon;
 	let myArmor;
 
-	characterPrototype.findCharacter(req.body.characterId, function(character){
+	characterPrototype.findCharacter(req.session.characterId, function(character){
 		myCharacter = character;
 		characterPrototype.findEnemies(req.body.zone, function(enemyList){
 			enemies = enemyList;
