@@ -1,6 +1,9 @@
+var loadedCharacter;
+
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+
 
 async function writeLog(gameLog) {
   for (let index = 0; index < gameLog.length; index++) {
@@ -13,6 +16,7 @@ async function writeLog(gameLog) {
 
 function characterLoad(){
   $.post( "/character/load", function(character) {
+      loadedCharacter = character;
       $("#characterName").html(character.name);
       $("#characterXp")// TO DO
       $("#characterGold").html(character.gold);
@@ -23,6 +27,14 @@ function characterLoad(){
       $("#characterWeapon");// TO DO
       $("#characterArmor");// TO DO
   });
+}
+function fight(){
+   $.post("/character/attack",{"characterId": loadedCharacter.id, "zone": $( "#zoneSelector option:selected" ).text()}, function(data){
+       writeLog(data.gameLog);
+       characterLoad();
+
+       }
+   );
 }
 
 $(function() {

@@ -7,6 +7,7 @@ const characterPrototype = new Character();
 
 router.post('/load', (req, res) => {
 	characterPrototype.findPlayerCharacter(req.session.userId, function(character) {
+		console.log(character);
 		res.send(character);
 	});
 });

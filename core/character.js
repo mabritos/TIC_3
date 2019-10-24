@@ -54,7 +54,7 @@ Character.prototype = {
         });
     },
     
-    findEnemy: function(zone, callback) {
+    findEnemies: function(zone, callback) {
         let sql = 'SELECT * FROM enemies WHERE zone = ?';
 
         pool.query(sql, zone, function (err, result) {
@@ -71,7 +71,7 @@ Character.prototype = {
     },
     
     getItem: function(itemId, callback) {
-        let sql = 'SELECT * FROM items WHERE itemId = ?';
+        let sql = 'SELECT * FROM items WHERE id = ?';
 
         pool.query(sql, itemId, function (err, result) {
             if (err) throw err;
@@ -88,7 +88,7 @@ Character.prototype = {
         let appearance = Math.floor(Math.random() * 5);
         let enemy;
         for (let i = 0; i < enemyList.length; i++) {
-            if (enemyList[i].Appearance == appearance) {
+            if (enemyList[i].spawn == appearance) {
                 return enemy = enemyList[i];
             }
         }
@@ -97,14 +97,14 @@ Character.prototype = {
     minAndMaxStatsItemCharacter: function(item, character){
         let min, max;
         if (item.Stat == "STR") {
-            min = parseInt(item.Min) + parseInt(character.strength);
-            max = parseInt(item.Min) + parseInt(character.strength);
+            min = parseInt(item.min) + parseInt(character.strength);
+            max = parseInt(item.max) + parseInt(character.strength);
         }else if (item.Stat == "AGI") {
-            min = parseInt(item.Min) + parseInt(character.agility);
-            max = parseInt(item.Min) + parseInt(character.agility);
+            min = parseInt(item.min) + parseInt(character.agility);
+            max = parseInt(item.max) + parseInt(character.agility);
         }else {
-            min = parseInt(item.Min) + parseInt(character.intelligence);
-            max = parseInt(item.Min) + parseInt(character.intelligence);
+            min = parseInt(item.min) + parseInt(character.intelligence);
+            max = parseInt(item.max) + parseInt(character.intelligence);
         }
         return [min, max];
 
@@ -129,9 +129,11 @@ Character.prototype = {
         let defenseCharacterMax = minAndMaxDefense[1];
 
         //se simula la pelea, cada ataque se anade al log
-        let log = "A " + enemy.name +" has appeared!\n";
+        let gameLog=[] ;
+        gameLog[0] = "A " + enemy.name +" has appeared!\n";
         let playerDeals = 0;
         let enemyDeals = 0;
+        let i = 0;
 
         while (characterHp > 0 && enemyHp > 0) {
             playerDeals = randomIntFromInterval(attackCharacterMin, attackCharacterMax) - randomIntFromInterval(enemy.minDefense, enemy.maxDefense);
@@ -139,7 +141,8 @@ Character.prototype = {
                 playerDeals = 0;
             }
             enemyHp = enemyHp - playerDeals;
-            log += character.name + " attacked with " + weapon.name + ", dealing " + playerDeals + " Damage!\n";
+            i++;
+            gameLog[i]= character.name + " attacked with " + weapon.name + ", dealing " + playerDeals + " Damage!";
             if (enemyHp <= 0){
                 break;
             }
@@ -147,13 +150,17 @@ Character.prototype = {
             if(enemyDeals < 0){
                 enemyDeals = 0;
             }
+            i++;
             characterHp = characterHp - enemyDeals;
-            log += enemy.name + " attacked, dealing " + enemyDeals + " Damage!\n";
+            gameLog[i]= enemy.name + " attacked, dealing " + enemyDeals + " Damage!";
         }
+        i++;
 
         //casos si character gana o pierde la pelea
         if(characterHp > 0){
-            log += "You've slained " + enemy.name + "\n" + "You've gained " + enemy.gold + " gold and " + enemy.xp + " xp!";
+            gameLog[i]= "You've slained " + enemy.name + "!";
+            i++;
+            gameLog[i] = "You've gained " + enemy.gold + " gold and " + enemy.xp + " xp!";
             character.gold += enemy.gold;
             character.xp += enemy.xp;
             let sql = 'UPDATE characters SET gold = ?, xp = ? WHERE userId = ?';
@@ -161,10 +168,10 @@ Character.prototype = {
                 if (err) throw err;
             });
         }else{
-            log += "You were defeated by " + enemy.name;
+            gameLog[i]= "You were defeated by " + enemy.name;
         }
 
-        return {"character": character, "log": log};
+        return {"character": character, "gameLog": gameLog};
     }
 }
 
