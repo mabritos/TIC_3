@@ -24,8 +24,14 @@ function printCharacter(character) {
     $("#characterStrength").html(character.strength);
     $("#characterAgility").html(character.agility);
     $("#characterIntelligence").html(character.intelligence);
-    $("#characterWeapon");// TO DO
-    $("#characterArmor");// TO DO
+    /*
+    $.post("/character/getItem", function(items) {
+        $("#characterWeaponName").html(items.Armor.name);
+        $("#characterArmorName").html(items.Weapon.name);
+        $("#characterArmor").attr("src","/client/img/items/" + items.Armor.icon); //no estoy seguro que se pueda escribir la url de la img asi
+        $("#characterWeapon").attr("src","/client/img/items/" + items.Weapon.icon);
+    });
+     */
 }
 
 function characterLoad(character = null) {
