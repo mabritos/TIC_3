@@ -14,7 +14,9 @@ CREATE TABLE items (
 	min int,
 	max int,
 	stat varchar(3),
-	upgrade int,
+	upgradeId int,
+	upgradeCost int,
+	icon varchar(100),
 	PRIMARY KEY (id)
 );
 CREATE TABLE characters (

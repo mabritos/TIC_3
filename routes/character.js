@@ -35,5 +35,22 @@ router.post('/attack', (req, res) => {
 		});
 	});
 });
+/*
+router.post('/getItem', (req, res) => {
+	let myArmor;
+	let myWeapon;
+	let myChar;
 
+	characterPrototype.findCharacter(req.body.characterId, function (character) {
+		myChar = character;
+		characterPrototype.getItem(myChar.weaponId, function (weapon) {
+			myWeapon = weapon;
+			characterPrototype.getItem(myChar.armorId, function (armor) {
+				myArmor = armor;
+				res.send({"Armor": myArmor, "Weapon": myWeapon});
+			});
+		});
+	});
+});
+*/
 module.exports = router;
