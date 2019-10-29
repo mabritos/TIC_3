@@ -16,6 +16,25 @@ async function printFight(gameLog, character) {
         printCharacter(character);
 }
 
+function printXp(xp) {
+    let xpTop = getXpTop(xp);
+    current_progress = xp/xpTop*100;
+    $(".progress-bar").css("width", current_progress + "%").attr("aria-valuenow", current_progress)
+    $(".progress").notify(xp + '/' + xpTop, {
+      style: 'rpg', className: "xp", position: "right"
+    });
+}
+
+function getXpTop(xp) {
+    let xpLevels = [100, 250, 500, 1000, 2500]
+    xpLevels.forEach(xpTop => {
+        console.log(xp < xpTop)
+        if (xp < xpTop) {
+            return xpTop;
+        }
+    });
+}
+
 function printCharacter(character) {
     $("#characterName").html(character.name);
     $("#characterXp")// TO DO
@@ -35,7 +54,6 @@ function characterLoad(character = null) {
         });
     else
         printCharacter(character);
-
 }
 
 function fight() {
@@ -49,5 +67,6 @@ function fight() {
 }
 
 $(function () {
+
     characterLoad();
 });

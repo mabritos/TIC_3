@@ -43,11 +43,11 @@ Character.prototype = {
         // prepare the sql query
         let sql = 'SELECT * FROM characters WHERE userId = ?';
 
-        pool.query(sql, userId, function (err, result) {
+        pool.query(sql, userId, function (err, character) {
             if (err) throw err;
 
-            if (result.length) {
-                callback(result[0]);
+            if (character.length) {
+                callback(character[0]);
             } else {
                 callback(null);
             }
