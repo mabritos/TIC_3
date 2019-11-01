@@ -58,3 +58,9 @@ INSERT INTO items ('1', 'Leather Armor', 'A', '0', '4', 'AGI', NULL, NULL, 'leat
 INSERT INTO items ('2', 'Wooden Sword', 'W', '2', '5', 'STR', NULL, NULL, 'wooden-sword.svg');
 INSERT INTO enemies ('1', 'Dummy', 'Training Grounds', '1', '10', '0', '1', '0', '0', '10', '10', NULL, NULL);
 INSERT INTO enemies ('2', 'Recruit', 'Training Grounds', '2', '20', '2', '5', '2', '6', '20', '30', NULL, NULL);
+
+ALTER TABLE `db`.`enemies`
+ADD COLUMN `icon` VARCHAR(45) NULL AFTER `dropChance`;
+
+UPDATE `db`.`enemies` SET `icon` = 'training-dummy.svg' WHERE (`id` = '1');
+UPDATE `db`.`enemies` SET `icon` = 'recruit.svg' WHERE (`id` = '2');
