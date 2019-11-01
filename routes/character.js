@@ -1,5 +1,7 @@
 const express = require('express');
 const Character = require('../core/character');
+const Zone = require('../core/zone');
+const Item = require('../core/item');
 const router = express.Router();
 
 // create an object from the class User in the file core/user.js
