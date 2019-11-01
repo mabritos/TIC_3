@@ -5,7 +5,7 @@ function randomIntFromInterval(min, max) { // min and max included
 }
 
 function Character() {
-};
+}
 
 Character.prototype = {
 
@@ -53,48 +53,7 @@ Character.prototype = {
             }
         });
     },
-    
-    findEnemies: function(zone, callback) {
-        let sql = 'SELECT * FROM enemies WHERE zone = ?';
 
-        pool.query(sql, zone, function (err, enemy) {
-            if (err) throw err;
-
-            if (enemy.length) {
-                callback(enemy);
-            } else {
-                callback(null);
-
-            }
-
-        });
-    },
-    
-    getItem: function(itemId, callback) {
-        let sql = 'SELECT * FROM items WHERE id = ?';
-
-        pool.query(sql, itemId, function (err, result) {
-            if (err) throw err;
-
-            if (result.length) {
-                callback(result[0]);
-            } else {
-                callback(null);
-            }
-        });
-    },
-    
-    randomEnemy: function(enemyList) {
-        // let appearance = Math.floor(Math.random() * 5);
-        // let enemy;
-        // for (let i = 0; i < enemyList.length; i++) {
-        //     if (enemyList[i].spawn == appearance) {
-        //         return enemy = enemyList[i];
-        //     }
-        // }
-        return enemyList[0];
-    },
-    
     minAndMaxStatsItemCharacter: function(item, character){
         let min, max;
         if (item.Stat == "STR") {
@@ -111,10 +70,7 @@ Character.prototype = {
 
     },
 
-    fight: function(character, weapon, armor, enemies) {
-        //se elije un enemigo al azar de la lista
-        let enemy = Character.prototype.randomEnemy(enemies);
-
+    fight: function(character, weapon, armor, enemy) {
         //calcular vuserIda del character y del enemigo
         let characterHp = character.hp;
         let enemyHp = enemy.hp;
@@ -131,7 +87,7 @@ Character.prototype = {
 
         //se simula la pelea, cada ataque se anade al log
         let gameLog=[] ;
-        gameLog[0] = "A " + enemy.name +" has appeared!\n";
+        gameLog[0] = "A " + enemy.name +" has appeared!";
         let playerDeals = 0;
         let enemyDeals = 0;
         let i = 0;
@@ -174,6 +130,6 @@ Character.prototype = {
 
         return {"character": character, "gameLog": gameLog};
     }
-}
+};
 
 module.exports = Character;

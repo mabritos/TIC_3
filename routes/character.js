@@ -4,6 +4,8 @@ const router = express.Router();
 
 // create an object from the class User in the file core/user.js
 const characterPrototype = new Character();
+const zonePrototype = new Zone();
+const itemPrototype = new Item();
 
 router.post('/load', (req, res) => {
     if (req.session.userId)
@@ -17,19 +19,19 @@ router.post('/load', (req, res) => {
 
 router.post('/attack', (req, res) => {
 	let myCharacter;
-	let enemies;
+	let myEnemy;
 	let myWeapon;
 	let myArmor;
 
 	characterPrototype.findCharacter(req.session.characterId, function(character){
 		myCharacter = character;
-		characterPrototype.findEnemies(req.body.zone, function(enemyList){
-			enemies = enemyList;
-			characterPrototype.getItem(myCharacter.weaponId, function(weapon){
+		zonePrototype.findEnemy(req.body.zone, function(enemy){
+			myEnemy = enemy;
+			itemPrototype.getItem(myCharacter.weaponId, function(weapon){
 				myWeapon = weapon;
-				characterPrototype.getItem(myCharacter.armorId, function(armor){
+				itemPrototype.getItem(myCharacter.armorId, function(armor){
 					myArmor = armor;
-					res.send(characterPrototype.fight(myCharacter, myWeapon, myArmor, enemies));
+					res.send(characterPrototype.fight(myCharacter, myWeapon, myArmor, myEnemy));
 				});
 			});
 		});
