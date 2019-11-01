@@ -54,10 +54,10 @@ CREATE TABLE enemies(
 	FOREIGN KEY (dropId) REFERENCES items(id),
 );
 
-INSERT INTO items ('1', 'Leather Armor', 'A', '0', '4', 'AGI', NULL, NULL, 'leather-armor.svg');
-INSERT INTO items ('2', 'Wooden Sword', 'W', '2', '5', 'STR', NULL, NULL, 'wooden-sword.svg');
-INSERT INTO enemies ('1', 'Dummy', 'Training Grounds', '1', '10', '0', '1', '0', '0', '10', '10', NULL, NULL);
-INSERT INTO enemies ('2', 'Recruit', 'Training Grounds', '2', '20', '2', '5', '2', '6', '20', '30', NULL, NULL);
+INSERT INTO items values ('1', 'Leather Armor', 'A', '0', '4', 'AGI', NULL, NULL, 'leather-armor.svg');
+INSERT INTO items values ('2', 'Wooden Sword', 'W', '2', '5', 'STR', NULL, NULL, 'wooden-sword.svg');
+INSERT INTO enemies values ('1', 'Dummy', 'Training Grounds', '1', '10', '0', '1', '0', '0', '10', '10', NULL, NULL);
+INSERT INTO enemies values ('2', 'Recruit', 'Training Grounds', '2', '20', '2', '5', '2', '6', '20', '30', NULL, NULL);
 
 ALTER TABLE `db`.`enemies`
 ADD COLUMN `icon` VARCHAR(45) NULL AFTER `dropChance`;
