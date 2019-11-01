@@ -1,4 +1,4 @@
-var loadedCharacter;
+
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
