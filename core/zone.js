@@ -21,13 +21,17 @@ Zone.prototype = {
         for(let enemy of enemies){
             maxSum += enemy.spawn;
         }
-        let arrayWProb = [maxSum];
+
+        let arrayWProb = new Array(maxSum);
         let j;
         let tracker = 0;
-        let randomIndex = Math.floor(Math.random() * maxSum+1);
+        let randomIndex = Math.floor(Math.random() * maxSum);
+        console.log(randomIndex);
+        let track = 0;
         for(let enemy of enemies){
             j = enemy.spawn;
-            while(tracker < tracker+j) {
+            track = tracker;
+            while(tracker < track+j) {
                 arrayWProb[tracker] = enemy.id;
                 tracker++;
             }
