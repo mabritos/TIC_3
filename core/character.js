@@ -128,7 +128,7 @@ Character.prototype = {
             gameLog[i]= "You were defeated by " + enemy.name;
         }
 
-        return {"character": character, "gameLog": gameLog};
+        return {"character": character, "gameLog": gameLog, "enemy": enemy};
     }
 };
 

@@ -5,7 +5,8 @@ function sleep(ms) {
 }
 
 
-async function printFight(gameLog, character) {
+async function printFight(gameLog, character, enemy) {
+    $("#gameImage").attr("src", "/client/img/enemies/"+enemy.icon);
     for (let index = 0; index < gameLog.length; index++) {
         const element = gameLog[index];
         $("#gameLog").html($("#gameLog").html() + element + "<br>");
@@ -35,7 +36,7 @@ function getXpTop(xp) {
     });
 }
 
-function printCharacter(character) {
+function printCharacter(character, items) {
     $("#characterName").html(character.name);
     $("#characterXp")// TO DO
     $("#characterGold").html(character.gold).fadeIn();
@@ -43,6 +44,10 @@ function printCharacter(character) {
     $("#characterStrength").html(character.strength);
     $("#characterAgility").html(character.agility);
     $("#characterIntelligence").html(character.intelligence);
+    $("#characterArmor").attr("src", "/client/img/items/"+items.armor.icon);
+    $("#characterWeapon").attr("src", "/client/img/items/"+items.weapon.icon);
+    $("#characterArmorName").html(items.armor.name);
+    $("#characterWeaponName").html(items.weapon.name);
     /*
     $.post("/character/getItem", function(items) {
         $("#characterWeaponName").html(items.Armor.name);
@@ -56,17 +61,23 @@ function printCharacter(character) {
 function characterLoad(character = null) {
     if (character === null)
         $.post("/character/load", function (character) {
-            printCharacter(character);
+            $.post('/character/getItems',{"character": character} , function(items){
+                printCharacter(character,items);
+            });
+
         });
-    else
-        printCharacter(character);
+    else {
+        $.post('/character/getItems',{"character": character} , function(items){
+            printCharacter(character,items);
+        });
+    }
 }
 
 function fight() {
     let zone = $("#zoneSelector option:selected").text();
     if (zone != 'Choose...')
         $.post("/character/attack", { 'zone': zone }, function (data) {
-            printFight(data.gameLog, data.character);
+            printFight(data.gameLog, data.character, data.enemy);
         });
     else
         printFight(["You must choose a zone in order to fight..."]);

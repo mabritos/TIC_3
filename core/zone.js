@@ -26,7 +26,6 @@ Zone.prototype = {
         let j;
         let tracker = 0;
         let randomIndex = Math.floor(Math.random() * maxSum);
-        console.log(randomIndex);
         let track = 0;
         for(let enemy of enemies){
             j = enemy.spawn;

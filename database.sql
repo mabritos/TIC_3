@@ -51,7 +51,7 @@ CREATE TABLE enemies(
 	dropId int,
 	dropChance int,
 	PRIMARY KEY (id),
-	FOREIGN KEY (dropId) REFERENCES items(id),
+	FOREIGN KEY (dropId) REFERENCES items(id)
 );
 
 INSERT INTO items values ('1', 'Leather Armor', 'A', '0', '4', 'AGI', NULL, NULL, 'leather-armor.svg');

@@ -18,7 +18,14 @@ router.post('/load', (req, res) => {
     else
         res.send("Your session has expired.");
 });
-
+router.post('/getItems', (req, res) =>{
+	itemPrototype.getItem(req.body.character.armorId,function(armor){
+		itemPrototype.getItem(req.body.character.weaponId, function(weapon){
+			let items = {"weapon": weapon, "armor": armor};
+			res.send(items);
+		});
+	});
+});
 router.post('/attack', (req, res) => {
 	let myCharacter;
 	let myEnemy;
