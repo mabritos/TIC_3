@@ -54,6 +54,34 @@ Character.prototype = {
         });
     },
 
+    equipWeapon: function(itemId, characterId) {
+        let sql = 'UPDATE characters SET weaponId = ? WHERE characterId = ?';
+
+        pool.query(sql, [itemId, characterId], function (err, character) {
+            if (err) throw err;
+
+            if (character.length) {
+                callback(character[0]);
+            } else {
+                callback(null);
+            }
+        });
+    },
+
+    equipArmor: function(itemId, characterId) {
+        let sql = 'UPDATE characters SET armorId = ? WHERE characterId = ?';
+
+        pool.query(sql, [itemId, characterId], function (err, character) {
+            if (err) throw err;
+
+            if (character.length) {
+                callback(character[0]);
+            } else {
+                callback(null);
+            }
+        });
+    },
+
     minAndMaxStatsItemCharacter: function(item, character){
         let min, max;
         if (item.Stat == "STR") {
@@ -118,6 +146,10 @@ Character.prototype = {
             gameLog[i]= "You've slained " + enemy.name + "!";
             i++;
             gameLog[i] = "You've gained " + enemy.gold + " gold and " + enemy.xp + " xp!";
+            if (randomIntFromInterval(0, 100) <= enemy.dropChance) {
+                loot = enemy.dropId;
+                gameLog[i] = "You found loot in the remains of " + enemy.name;
+            }
             character.gold += enemy.gold;
             character.xp += enemy.xp;
             let sql = 'UPDATE characters SET gold = ?, xp = ? WHERE id = ?';
@@ -128,7 +160,8 @@ Character.prototype = {
             gameLog[i]= "You were defeated by " + enemy.name;
         }
 
-        return {"character": character, "gameLog": gameLog, "enemy": enemy};
+        return {"character": character, "gameLog": gameLog, "enemy": enemy, "loot": loot};
+
     }
 };
 

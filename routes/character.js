@@ -46,6 +46,10 @@ router.post('/attack', (req, res) => {
 		});
 	});
 });
+
+router.post('/equip', (req, res) => {
+
+});
 /*
 router.post('/getItem', (req, res) => {
 	let myArmor;
