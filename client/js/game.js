@@ -24,6 +24,16 @@ function printLoot(loot) {
     //TO DO
 }
 
+function equipItem(character){
+    //get itemId from selector
+    let itemId;
+    $.post("/character/getItem",{"itemId": itemId}, function(item){
+        $.post('/character/equip', {'item': item}, function(character){
+            printCharacter(character);
+        });
+    });
+}
+
 function printXp(xp) {
     let xpTop = getXpTop(xp);
     current_progress = xp/xpTop*100;
@@ -51,10 +61,12 @@ function printCharacter(character, items) {
     $("#characterStrength").html(character.strength);
     $("#characterAgility").html(character.agility);
     $("#characterIntelligence").html(character.intelligence);
-    $("#characterArmor").attr("src", "/client/img/items/"+items.armor.icon);
-    $("#characterWeapon").attr("src", "/client/img/items/"+items.weapon.icon);
-    $("#characterArmorName").html(items.armor.name);
-    $("#characterWeaponName").html(items.weapon.name);
+    if(items) {
+        $("#characterArmor").attr("src", "/client/img/items/" + items.armor.icon);
+        $("#characterWeapon").attr("src", "/client/img/items/" + items.weapon.icon);
+        $("#characterArmorName").html(items.armor.name);
+        $("#characterWeaponName").html(items.weapon.name);
+    }
     /*
     $.post("/character/getItem", function(items) {
         $("#characterWeaponName").html(items.Armor.name);
@@ -71,7 +83,6 @@ function characterLoad(character = null) {
             $.post('/character/getItems',{"character": character} , function(items){
                 printCharacter(character,items);
             });
-
         });
     else {
         $.post('/character/getItems',{"character": character} , function(items){

@@ -21,26 +21,22 @@ router.post('/load', (req, res) => {
 router.post('/getItems', (req, res) =>{
 	itemPrototype.getItem(req.body.character.armorId,function(armor){
 		itemPrototype.getItem(req.body.character.weaponId, function(weapon){
-			let items = {"weapon": weapon, "armor": armor};
-			res.send(items);
+			res.send({"weapon": weapon, "armor": armor});
 		});
 	});
 });
-router.post('/attack', (req, res) => {
-	let myCharacter;
-	let myEnemy;
-	let myWeapon;
-	let myArmor;
+router.post('/getItem', (req, res) =>{
+	itemPrototype.getItem(req.body.itemId, function(item){
+		res.send(item);
+	});
+});
 
+router.post('/attack', (req, res) => {
 	characterPrototype.findCharacter(req.session.characterId, function(character){
-		myCharacter = character;
 		zonePrototype.findEnemy(req.body.zone, function(enemy){
-			myEnemy = enemy;
-			itemPrototype.getItem(myCharacter.weaponId, function(weapon){
-				myWeapon = weapon;
-				itemPrototype.getItem(myCharacter.armorId, function(armor){
-					myArmor = armor;
-					res.send(characterPrototype.fight(myCharacter, myWeapon, myArmor, myEnemy));
+			itemPrototype.getItem(character.weaponId, function(weapon){
+				itemPrototype.getItem(character.armorId, function(armor){
+					res.send(characterPrototype.fight(character, weapon, armor, enemy));
 				});
 			});
 		});
@@ -48,7 +44,14 @@ router.post('/attack', (req, res) => {
 });
 
 router.post('/equip', (req, res) => {
-
+	if(req.body.item.type == 'A')
+		characterPrototype.equipArmor(req.body.item.id, req.session.characterId, function(character){
+			res.send(character);
+		});
+	else
+		characterPrototype.equipWeapon(req.body.item.id, req.session.characterId, function(character){
+			res.send(character);
+		});
 });
 /*
 router.post('/getItem', (req, res) => {

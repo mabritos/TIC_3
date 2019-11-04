@@ -102,6 +102,7 @@ Character.prototype = {
         //calcular vuserIda del character y del enemigo
         let characterHp = character.hp;
         let enemyHp = enemy.hp;
+        let loot;
 
         //calcular ataque del character
         let minAndMaxAttack = Character.prototype.minAndMaxStatsItemCharacter(weapon,character);
