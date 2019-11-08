@@ -25,12 +25,15 @@ function printLoot(loot) {
     //TO DO
 }
 
-function equipItem(character) {
+function equipItem(){
     //get itemId from selector
     let itemId;
     $.post("/character/getItem",{"itemId": itemId}, function(item){
         $.post('/character/equip', {'item': item}, function(character){
-            printCharacter(character);
+            if(item.type == 'A')
+                printCharacter(character,{'armor': item, 'weapon': null});
+            else
+                printCharacter(character,{'armor': null, 'weapon': item});
         });
     });
 }
@@ -63,10 +66,13 @@ function printCharacter(character, items) {
     $("#characterIntelligence").html(character.intelligence);
     printXp(character.xp);
     if(items) {
-        $("#characterArmor").attr("src", "/client/img/items/" + items.armor.icon);
-        $("#characterWeapon").attr("src", "/client/img/items/" + items.weapon.icon);
-        $("#characterArmorName").html(items.armor.name);
-        $("#characterWeaponName").html(items.weapon.name);
+        if(items.armor){
+            $("#characterArmor").attr("src", "/client/img/items/" + items.armor.icon);
+            $("#characterArmorName").html(items.armor.name);
+        }if(items.weapon){
+            $("#characterWeapon").attr("src", "/client/img/items/" + items.weapon.icon);
+            $("#characterWeaponName").html(items.weapon.name);
+        }
     }
 }
 
