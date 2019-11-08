@@ -29,7 +29,7 @@ function equipItem(){
     $.post("/character/getItem",{"itemId": itemId}, function(item){
         $.post('/character/equip', {'item': item}, function(character){
             if(item.type == 'A')
-                printCharacter(character,{'armor': item, 'weapon': nu ll});
+                printCharacter(character,{'armor': item, 'weapon': null});
             else
                 printCharacter(character,{'armor': null, 'weapon': item});
         });
