@@ -4,10 +4,8 @@ function sleep(ms) {
 
 
 async function printFight(gameLog, character, enemy, loot) {
-    $("#fightButton").prop('disabled', true);
-    $("#gameLog").html("");
     if (enemy)
-        $("#gameImage").attr("src", "/client/img/enemies/" + enemy.icon);
+        $("#gameImage").attr("src", "/client/img/enemies/"+enemy.icon);
     for (let index = 0; index < gameLog.length; index++) {
         const element = gameLog[index];
         $("#gameLog").html($("#gameLog").html() + element + "<br>");
@@ -31,7 +29,7 @@ function equipItem(){
     $.post("/character/getItem",{"itemId": itemId}, function(item){
         $.post('/character/equip', {'item': item}, function(character){
             if(item.type == 'A')
-                printCharacter(character,{'armor': item, 'weapon': null});
+                printCharacter(character,{'armor': item, 'weapon': nu ll});
             else
                 printCharacter(character,{'armor': null, 'weapon': item});
         });
@@ -92,11 +90,12 @@ function characterLoad(character = null) {
 
 function fight() {
     let zone = $("#zoneSelector option:selected").text();
-    if (zone != 'Choose...')
+    if (zone != 'Choose...') {
+        $("#fightButton").prop('disabled', true);
         $.post("/character/attack", { 'zone': zone }, function (data) {
             printFight(data.gameLog, data.character, data.enemy, data.loot);
         });
-    else
+    } else
         printFight(["You must choose a zone in order to fight..."]);
 }
 
