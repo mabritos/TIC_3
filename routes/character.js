@@ -44,12 +44,13 @@ router.post('/attack', (req, res) => {
 });
 
 router.post('/equip', (req, res) => {
-	if(req.body.item.type == 'A')
-		characterPrototype.equipArmor(req.body.item.id, req.session.characterId, function(character){
+    let item = itemPrototype.getItem(req.body.item);
+	if(item.type == 'A')
+		characterPrototype.equipArmor(item.id, req.session.characterId, function(character){
 			res.send(character);
 		});
 	else
-		characterPrototype.equipWeapon(req.body.item.id, req.session.characterId, function(character){
+		characterPrototype.equipWeapon(item.id, req.session.characterId, function(character){
 			res.send(character);
 		});
 });

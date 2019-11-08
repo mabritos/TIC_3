@@ -22,20 +22,20 @@ async function printFight(gameLog, character, enemy, loot) {
 }
 
 function printLoot(loot) {
-    //TO DO
+    $.post("/character/getItem",{"itemId": loot}, function(item){
+        $("#lootSelector").append('<option value="'+item.id+'" selected="selected">'+item.name+' ('+item.min+' - '+item.max+')'+'</option>');
+    });
+    $("#loot").removeClass('d-none');
 }
 
 function equipItem(){
     //get itemId from selector
-    let itemId;
-    $.post("/character/getItem",{"itemId": itemId}, function(item){
+    let item = $("#lootSelector option:selected").text();
+    if (item != "Choose...") 
         $.post('/character/equip', {'item': item}, function(character){
-            if(item.type == 'A')
-                printCharacter(character,{'armor': item, 'weapon': null});
-            else
-                printCharacter(character,{'armor': null, 'weapon': item});
+            printCharacter(character);
         });
-    });
+    $("#loot").addClass('d-none');
 }
 
 var xpLevels = [0, 100, 250, 500, 1000, 2500];
