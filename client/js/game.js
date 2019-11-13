@@ -28,10 +28,15 @@ function printLoot(loot) {
 
 function equipItem(){
     //get itemId from selector
-    let item = $("#lootSelector option:selected").text();
-    if (item != "Choose...") 
-        $.post('/character/equip', {'item': item}, function(character){
-            printCharacter(character);
+    let itemId = document.getElementById("lootSelector").value;
+    let text = $("#lootSelector option:selected").html();
+    if (text != "Choose...")
+        $.post('/character/equip', {'itemId': itemId}, function(data){
+            console.log(data.item);
+            if(data.item.type == 'A')
+                printCharacter(data.character, {"armor": data.item});
+            else
+                printCharacter(data.character, {"weapon": data.item});
         });
     $("#loot").addClass('d-none');
 }
@@ -66,10 +71,10 @@ function printCharacter(character, items) {
     if(items) {
         if(items.armor){
             $("#characterArmor").attr("src", "/client/img/items/" + items.armor.icon);
-            $("#characterArmorName").html(items.armor.name);
+            $("#characterArmorName").html(items.armor.name+ " ("+items.armor.min+" - "+items.armor.max+")");
         }if(items.weapon){
             $("#characterWeapon").attr("src", "/client/img/items/" + items.weapon.icon);
-            $("#characterWeaponName").html(items.weapon.name);
+            $("#characterWeaponName").html(items.weapon.name + " ("+items.weapon.min+" - "+items.weapon.max+")");
         }
     }
 }

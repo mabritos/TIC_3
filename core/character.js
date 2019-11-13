@@ -54,28 +54,28 @@ Character.prototype = {
         });
     },
 
-    equipWeapon: function(itemId, characterId) {
-        let sql = 'UPDATE characters SET weaponId = ? WHERE characterId = ?';
+    equipWeapon: function(itemId, characterId, callback) {
+        let sql = 'UPDATE characters SET weaponId = ? WHERE id = ?';
 
-        pool.query(sql, [itemId, characterId], function (err, character) {
+        pool.query(sql, [itemId, characterId], function (err, res) {
             if (err) throw err;
 
-            if (character.length) {
-                callback(character[0]);
+            if (res.length) {
+                callback(res[0]);
             } else {
                 callback(null);
             }
         });
     },
 
-    equipArmor: function(itemId, characterId) {
-        let sql = 'UPDATE characters SET armorId = ? WHERE characterId = ?';
+    equipArmor: function(itemId, characterId, callback) {
+        let sql = 'UPDATE characters SET armorId = ? WHERE id = ?';
 
-        pool.query(sql, [itemId, characterId], function (err, character) {
+        pool.query(sql, [itemId, characterId], function (err, res) {
             if (err) throw err;
 
-            if (character.length) {
-                callback(character[0]);
+            if (res.length) {
+                callback(res[0]);
             } else {
                 callback(null);
             }

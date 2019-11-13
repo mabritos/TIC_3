@@ -44,16 +44,23 @@ router.post('/attack', (req, res) => {
 });
 
 router.post('/equip', (req, res) => {
-    let item = itemPrototype.getItem(req.body.item);
-	if(item.type == 'A')
-		characterPrototype.equipArmor(item.id, req.session.characterId, function(character){
-			res.send(character);
+	itemPrototype.getItem(req.body.itemId, function(item){
+		if(item.type == 'A')
+			characterPrototype.equipArmor(item.id, req.session.characterId, function(result){
+				characterPrototype.findCharacter(req.session.characterId, function(character){
+					res.send({"character": character, "item": item});
+				});
+
+			});
+		else
+			characterPrototype.equipWeapon(item.id, req.session.characterId, function(result){
+				characterPrototype.findCharacter(req.session.characterId, function(character){
+					res.send({"character": character, "item": item});
+				});
+			});
 		});
-	else
-		characterPrototype.equipWeapon(item.id, req.session.characterId, function(character){
-			res.send(character);
-		});
-});
+	});
+
 /*
 router.post('/getItem', (req, res) => {
 	let myArmor;
