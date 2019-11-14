@@ -32,7 +32,6 @@ function equipItem(){
     let text = $("#lootSelector option:selected").html();
     if (text != "Choose...")
         $.post('/character/equip', {'itemId': itemId}, function(data){
-            console.log(data.item);
             if(data.item.type == 'A')
                 printCharacter(data.character, {"armor": data.item});
             else
@@ -102,6 +101,24 @@ function fight() {
         });
     } else
         printFight(["You must choose a zone in order to fight..."]);
+}
+
+function upgradeArmor(){
+    $.post("/character/upgradeArmor", function(data){
+        if(data.armor)
+            characterLoad();
+        else
+            printFight([data.msg]);
+        });
+}
+
+function upgradeWeapon(){
+    $.post("/character/upgradeWeapon", function(data){
+        if(data.weapon)
+            characterLoad();
+        else
+            printFight([data.msg]);
+    });
 }
 
 $(function () {

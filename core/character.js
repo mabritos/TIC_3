@@ -36,6 +36,19 @@ Character.prototype = {
             }
         });
     },
+    updateGold: function(character, gold, callback){
+      let sql = 'UPDATE characters SET gold = ? WHERE id = ?';
+      let newGold = character.gold - gold;
+        pool.query(sql, [newGold, character.id], function (err, res) {
+            if (err) throw err;
+
+            if (character.length) {
+                callback(res[0]);
+            } else {
+                callback(null);
+            }
+        });
+    },
 
     
     // Find the playablecharacter data by userId

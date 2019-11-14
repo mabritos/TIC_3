@@ -31,6 +31,46 @@ router.post('/getItem', (req, res) =>{
 	});
 });
 
+router.post('/upgradeWeapon', (req,res) =>{
+	characterPrototype.findCharacter(req.session.characterId,function(character){
+		itemPrototype.getItem(character.weaponId, function(weapon){
+			if(weapon.upgradeCost && weapon.upgradeId){
+				if(character.gold >= weapon.upgradeCost){
+					characterPrototype.equipWeapon(weapon.upgradeId, character.id,function(result){
+						itemPrototype.getItem(weapon.upgradeId, function(upgradedWeapon){
+							characterPrototype.updateGold(character,weapon.upgradeCost, function(result1){
+								res.send({'weapon':upgradedWeapon});
+							});
+						});
+					});
+				}else
+					res.send({'msg': "Not enough Gold"});
+			}else
+				res.send({'msg': "Weapon not upgradable"});
+		});
+	});
+});
+router.post('/upgradeArmor', (req,res) =>{
+	characterPrototype.findCharacter(req.session.characterId,function(character){
+		itemPrototype.getItem(character.armorId, function(armor){
+			if(armor.upgradeCost && armor.upgradeId){
+				if(character.gold >= armor.upgradeCost){
+					characterPrototype.equipArmor(armor.upgradeId, character.id,function(result){
+						itemPrototype.getItem(armor.upgradeId, function(upgradedArmor){
+							characterPrototype.updateGold(character,armor.upgradeCost, function(result1){
+								res.send({'armor':upgradedArmor});
+							});
+
+						});
+					});
+				}else
+					res.send({'msg': "Not enough Gold"});
+			}else
+				res.send({'msg': "Armor not upgradable"});
+		});
+	});
+});
+
 router.post('/attack', (req, res) => {
 	characterPrototype.findCharacter(req.session.characterId, function(character){
 		zonePrototype.findEnemy(req.body.zone, function(enemy){
