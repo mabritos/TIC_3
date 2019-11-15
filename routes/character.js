@@ -71,6 +71,58 @@ router.post('/upgradeArmor', (req,res) =>{
 	});
 });
 
+router.post('/upgradeHp', (req, res) =>{
+	characterPrototype.findCharacter(req.session.characterId, function (character) {
+		if(character.gold >= 150){
+			characterPrototype.updateHp(character, function (nothing) {
+				characterPrototype.updateGold(character, 150, function (none) {
+					res.send({'msg': "You paid 150 gold to train and gained 5 hp!"})
+				});
+			});
+		}else
+			res.send({'msg': "Not enough Gold"});
+	});
+});
+
+router.post('/upgradeStr', (req, res) =>{
+	characterPrototype.findCharacter(req.session.characterId, function (character) {
+		if(character.gold >= 150){
+			characterPrototype.updateStr(character, function (nothing) {
+				characterPrototype.updateGold(character, 150, function (none) {
+					res.send({'msg': "You paid 150 gold to train and gained 5 Strength!"})
+				});
+			});
+		}else
+			res.send({'msg': "Not enough Gold"});
+	});
+});
+
+router.post('/upgradeAgi', (req, res) =>{
+	characterPrototype.findCharacter(req.session.characterId, function (character) {
+		if(character.gold >= 150){
+			characterPrototype.updateAgi(character, function (nothing) {
+				characterPrototype.updateGold(character, 150, function (none) {
+					res.send({'msg': "You paid 150 gold to train and gained 5 Agility!"})
+				});
+			});
+		}else
+			res.send({'msg': "Not enough Gold"});
+	});
+});
+
+router.post('/upgradeInt', (req, res) =>{
+	characterPrototype.findCharacter(req.session.characterId, function (character) {
+		if(character.gold >= 150){
+			characterPrototype.updateInt(character, function (nothing) {
+				characterPrototype.updateGold(character, 150, function (none) {
+					res.send({'msg': "You paid 150 gold to study and gained 5 Intelligence!"})
+				});
+			});
+		}else
+			res.send({'msg': "Not enough Gold"});
+	});
+});
+
 router.post('/attack', (req, res) => {
 	characterPrototype.findCharacter(req.session.characterId, function(character){
 		zonePrototype.findEnemy(req.body.zone, function(enemy){

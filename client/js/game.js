@@ -121,6 +121,34 @@ function upgradeWeapon(){
     });
 }
 
+function upgradeHp(){
+    $.post("/character/upgradeHp", function (data) {
+        printFight([data.msg]);
+        characterLoad();
+    });
+}
+
+function upgradeStr(){
+    $.post("/character/upgradeStr", function (data) {
+        printFight([data.msg]);
+        characterLoad();
+    });
+}
+
+function upgradeAgi(){
+    $.post("/character/upgradeAgi", function (data) {
+        printFight([data.msg]);
+        characterLoad();
+    });
+}
+
+function upgradeInt(){
+    $.post("/character/upgradeInt", function (data) {
+        printFight([data.msg]);
+        characterLoad();
+    });
+}
+
 $(function () {
     characterLoad();
 });

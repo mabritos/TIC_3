@@ -42,7 +42,20 @@ Character.prototype = {
         pool.query(sql, [newGold, character.id], function (err, res) {
             if (err) throw err;
 
-            if (character.length) {
+            if (res.length) {
+                callback(res[0]);
+            } else {
+                callback(null);
+            }
+        });
+    },
+    updateHp: function(character, callback){
+        let sql = 'UPDATE characters SET hp = ? WHERE id = ?';
+        let newHP = character.hp + 5;
+        pool.query(sql, [newHP, character.id], function (err, res) {
+            if(err) throw err;
+
+            if (res.length) {
                 callback(res[0]);
             } else {
                 callback(null);
@@ -50,6 +63,47 @@ Character.prototype = {
         });
     },
 
+    updateStr: function(character, callback){
+        let sql = 'UPDATE characters SET strength = ? WHERE id = ?';
+        let newStr = character.strength + 5;
+        pool.query(sql, [newStr, character.id], function (err, res) {
+            if(err) throw err;
+
+            if (res.length) {
+                callback(res[0]);
+            } else {
+                callback(null);
+            }
+        });
+    },
+
+    updateAgi: function(character, callback){
+        let sql = 'UPDATE characters SET agility = ? WHERE id = ?';
+        let newAgi = character.agility + 5;
+        pool.query(sql, [newAgi, character.id], function (err, res) {
+            if(err) throw err;
+
+            if (res.length) {
+                callback(res[0]);
+            } else {
+                callback(null);
+            }
+        });
+    },
+
+    updateHp: function(character, callback){
+        let sql = 'UPDATE characters SET intelligence = ? WHERE id = ?';
+        let newInt = character.intelligence + 5;
+        pool.query(sql, [newInt, character.id], function (err, res) {
+            if(err) throw err;
+
+            if (res.length) {
+                callback(res[0]);
+            } else {
+                callback(null);
+            }
+        });
+    },
     
     // Find the playablecharacter data by userId
     findPlayerCharacter: function(userId, callback) {
