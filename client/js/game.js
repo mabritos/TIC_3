@@ -12,6 +12,7 @@ async function printFight(gameLog, character, enemy, loot) {
         $("#gameLog").scrollTop(250);
         await sleep(1000);
     }
+    $("#gameImage").attr("src", "/client/img/icons/hasty-grave.svg");
     if (character)
         printCharacter(character);
     if (loot)
