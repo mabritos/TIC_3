@@ -151,10 +151,10 @@ Character.prototype = {
 
     minAndMaxStatsItemCharacter: function(item, character){
         let min, max;
-        if (item.Stat == "STR") {
+        if (item.stat == "STR") {
             min = parseInt(item.min) + parseInt(character.strength);
             max = parseInt(item.max) + parseInt(character.strength);
-        }else if (item.Stat == "AGI") {
+        }else if (item.stat == "AGI") {
             min = parseInt(item.min) + parseInt(character.agility);
             max = parseInt(item.max) + parseInt(character.agility);
         }else {
