@@ -40,7 +40,6 @@ function equipItem(){
                 printCharacter(data.character, {"weapon": data.item});
         });
     $("#loot").addClass('d-none');
-    $("#loot").empty();
 }
 
 var xpLevels = [0, 100, 250, 500, 1000, 2500];
