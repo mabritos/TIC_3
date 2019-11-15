@@ -91,7 +91,7 @@ Character.prototype = {
         });
     },
 
-    updateHp: function(character, callback){
+    updateInt: function(character, callback){
         let sql = 'UPDATE characters SET intelligence = ? WHERE id = ?';
         let newInt = character.intelligence + 5;
         pool.query(sql, [newInt, character.id], function (err, res) {
