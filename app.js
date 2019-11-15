@@ -20,6 +20,9 @@ app.get('/login_reg', function(req, res) {
 app.get('/game', function(req, res) {
 	res.sendFile(__dirname + '/client/game.html');
 });
+app.get('/leaderboards', function(req, res) {
+	res.sendFile(__dirname + '/client/leaderboards.html');
+});
 app.use('/client', express.static(__dirname + '/client'));
 
 app.use(session({
