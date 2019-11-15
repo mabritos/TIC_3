@@ -4,6 +4,8 @@ function sleep(ms) {
 
 
 async function printFight(gameLog, character, enemy, loot) {
+    $("#gameLog").html($());
+    $("#loot").addClass('d-none');
     if (enemy)
         $("#gameImage").attr("src", "/client/img/enemies/"+enemy.icon);
     for (let index = 0; index < gameLog.length; index++) {
